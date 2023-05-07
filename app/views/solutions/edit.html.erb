@@ -5,6 +5,6 @@
 <br>
 
 <div>
-  <%= link_to "Показать решение", @solution %> |
-  <%= link_to "Обратно к решениям", solutions_path %>
+  <%= link_to "Показать решение", task_solution_path(@task, @solution) %> |
+  <%= link_to "Обратно к решениям", task_solutions_path(@task) %>
 </div>

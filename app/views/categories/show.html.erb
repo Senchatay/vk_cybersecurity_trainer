@@ -6,5 +6,5 @@
   <%= link_to "Редактировать категорию", edit_category_path(@category) %> |
   <%= link_to "Обратно к списку категорий", categories_path %>
 
-  <%= button_to "Удалить категорию", @category, method: :delete %>
+  <%= button_to "Удалить категорию", @category, method: :delete, class: 'btn btn-danger' %>
 </div>
