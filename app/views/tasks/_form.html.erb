@@ -16,6 +16,13 @@
     <%= form.text_field :name %>
   </div>
 
+  <% if [:new, :edit, :create, :update].include?(action_name.to_sym) %>
+    <div>
+      <%= form.label :'Категория', style: "display: block" %>
+      <%= form.select :category_id, @categories %>
+    </div>
+  <% end %>
+
   <div>
     <%= form.label :'Описание', style: "display: block" %>
     <%= form.text_area :description %>
