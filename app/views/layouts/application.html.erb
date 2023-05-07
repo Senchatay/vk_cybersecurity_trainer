@@ -11,6 +11,13 @@
   </head>
 
   <body>
+    <header>
+      <% if !user_signed_in? && controller_name != 'sessions' %>
+        <%= button_to 'Войти', new_session_path, method: :get  %>
+        <%= button_to 'Зарегистрироваться', new_user_path, method: :get  %>
+      <% else %>
+      <% end%>
+    </header>
     <%= yield %>
   </body>
 </html>
