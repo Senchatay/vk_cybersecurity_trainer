@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @task %>
+
+<div>
+  <%= link_to "Редактировать задачу", edit_task_path(@task) %> |
+  <%= link_to "Обратно к списку задач", tasks_path %>
+
+  <%= button_to "Удалить задачу", @task, method: :delete %>
+</div>
