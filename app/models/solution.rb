@@ -7,8 +7,4 @@ class Solution < ApplicationRecord
   def user_name
     user.name
   end
-
-  def task_name
-    task.name
-  end
 end

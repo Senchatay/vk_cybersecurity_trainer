@@ -1,4 +1,4 @@
-<%= form_with(model: solution) do |form| %>
+<%= form_with(model: [:task, solution]) do |form| %>
   <% if solution.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(solution.errors.count, "error") %> prohibited this solution from being saved:</h2>
@@ -10,6 +10,8 @@
       </ul>
     </div>
   <% end %>
+  
+  <%= form.hidden_field(:task_id, value: @task.id) %>
 
   <div>
     <%= form.label :'Содержимое', style: "display: block" %>
@@ -19,11 +21,6 @@
   <div>
     <%= form.label :'Пользователь', style: "display: block" %>
     <%= form.text_field :user_id %>
-  </div>
-
-  <div>
-    <%= form.label :'Задача', style: "display: block" %>
-    <%= form.text_field :task_id %>
   </div>
 
   <div>

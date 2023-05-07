@@ -1,9 +1,9 @@
-<h1>Новое Решение</h1>
+<h1>Новое Решение задачи <%= @task.name %></h1>
 
 <%= render "form", solution: @solution %>
 
 <br>
 
 <div>
-  <%= link_to "Обратно к решениям", solutions_path %>
+  <%= link_to "Обратно к решениям", task_solutions_path(@task) %>
 </div>

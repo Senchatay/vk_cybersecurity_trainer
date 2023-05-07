@@ -3,8 +3,8 @@
 <%= render partial: 'solution', object: @solution, locals: { with_content: true } %>
 
 <div>
-  <%= link_to "Редактировать решение", edit_solution_path(@solution) %> |
-  <%= link_to "Обратно к решениям", solutions_path %>
+  <%= link_to "Редактировать решение", edit_task_solution_path(@task, @solution) %> |
+  <%= link_to "Обратно к решениям", task_solutions_path(@task) %>
 
-  <%= button_to "Удалить решение", @solution, method: :delete %>
+  <%= button_to "Удалить решение", task_solution_path(@task, @solution), method: :delete %>
 </div>
