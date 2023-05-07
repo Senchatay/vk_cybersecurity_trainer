@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Решения Задачи <%= @task.name %></h1>
+
+<div id="solutions">
+  <% @solutions.each do |solution| %>
+    <%= render solution %>
+    <p>
+      <%= link_to "Показать решение", task_solution_path(@task, solution) %>
+    </p>
+    <hr>
+  <% end %>
+</div>
+
+<%= link_to "Новое решение", new_task_solution_path %> |
+<%= link_to "Обратно к списку задач", tasks_path %>

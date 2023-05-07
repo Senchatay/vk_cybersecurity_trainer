@@ -6,7 +6,8 @@
   <% @tasks.each do |task| %>
     <%= render task %>
     <p>
-      <%= link_to "Открыть эту задачу", task %>
+      <%= link_to "Открыть эту задачу", task %> |
+      <%= link_to "Открыть решения этой задачи", task_solutions_path(task) %>
     </p>
     <hr>
   <% end %>
