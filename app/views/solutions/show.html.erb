@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render partial: 'solution', object: @solution, locals: { with_content: true } %>
+
+<div>
+  <%= link_to "Редактировать решение", edit_solution_path(@solution) %> |
+  <%= link_to "Обратно к решениям", solutions_path %>
+
+  <%= button_to "Удалить решение", @solution, method: :delete %>
+</div>

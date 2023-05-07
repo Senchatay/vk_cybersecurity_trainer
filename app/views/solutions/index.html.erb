@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Решения</h1>
+
+<div id="solutions">
+  <% @solutions.each do |solution| %>
+    <%= render solution %>
+    <p>
+      <%= link_to "Показать решение", solution %>
+    </p>
+    <hr>
+  <% end %>
+</div>
+
+<%= link_to "Новое решение", new_solution_path %>

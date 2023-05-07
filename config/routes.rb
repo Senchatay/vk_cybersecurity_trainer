@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :solutions
   resources :users
   resources :categories
   resources :tasks

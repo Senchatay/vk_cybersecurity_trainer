@@ -1,0 +1,21 @@
+<div id="<%= dom_id solution %>">
+  <p>
+    <strong>Решение Задачи</strong>
+    <%= solution.task_name %>
+  </p>
+  
+  <% with_content ||= false %>
+  <% if with_content %>
+    <p>
+      <strong>Содержание:</strong>
+      <br>
+      <%= text_area(:solution, :content, size: '100x15', disabled: 'disabled') %>
+    </p>
+  <% end %>
+
+  <p>
+    <strong>Пользователь:</strong>
+    <%= solution.user_name %>
+  </p>
+
+</div>
