@@ -2,10 +2,12 @@
 
 <%= render @task %>
 
-<div>
+<div class="mb-3">
   <%= link_to "Редактировать задачу", edit_task_path(@task) %> |
   <%= link_to "Открыть решения этой задачи", task_solutions_path(@task) %> |
   <%= link_to "Обратно к списку задач", tasks_path %>
+</div>
 
+<div class="mb-3">
   <%= button_to "Удалить задачу", @task, method: :delete, class: 'btn btn-danger' %>
 </div>
