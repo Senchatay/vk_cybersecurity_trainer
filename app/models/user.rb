@@ -15,6 +15,8 @@ class User < ApplicationRecord
     end
   end
 
+  private
+
   def solved_count_by_category_id(category_id)
     solutions.joins('inner join tasks on solutions.task_id = tasks.id')
              .where('tasks.category_id' => category_id)
