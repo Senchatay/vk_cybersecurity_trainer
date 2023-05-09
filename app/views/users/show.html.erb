@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @user %>
+<%= render partial: 'user', object: @user, locals: { ratings: @ratings }%>
 
 <div class="mb-3">
   <%= link_to "Редактировать пользователя", edit_user_path(@user) %> |

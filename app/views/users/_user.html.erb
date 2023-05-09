@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <% user.scoreboard.each do |name, solved, total, rating|%>
+      <% user.scoreboard(ratings).each do |name, solved, total, rating|%>
         <tr>
           <th scope="row"><%= name %></th>
           <td><%= solved %></td>
