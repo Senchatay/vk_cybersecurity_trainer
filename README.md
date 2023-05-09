@@ -1,10 +1,15 @@
 # VK Платформа для тренировки навыков и компетенций кибербезопасности (scoreboard demo)
 ## Overview
-1. [Задача]([url](https://github.com/Senchatay/vk_cybersecurity_trainer/edit/master/README.md#%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B0))
-2. [Архитектура]([url](https://github.com/Senchatay/vk_cybersecurity_trainer/edit/master/README.md#%D0%B0%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0))
-    - [Технологический стэк]([url](https://github.com/Senchatay/vk_cybersecurity_trainer/edit/master/README.md#%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9-%D1%81%D1%82%D1%8D%D0%BA))
-    - [UML-диаграмма Классов]([url](https://github.com/Senchatay/vk_cybersecurity_trainer/edit/master/README.md#uml-%D0%B4%D0%B8%D0%B0%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2))
-3. [Getting Started]([url](https://github.com/Senchatay/vk_cybersecurity_trainer/edit/master/README.md#getting-started))
+1. [Задача](https://github.com/Senchatay/vk_cybersecurity_trainer/tree/master#%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B0)
+2. [Архитектура](https://github.com/Senchatay/vk_cybersecurity_trainer#%D0%B0%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0)
+    - [Технологический стэк](https://github.com/Senchatay/vk_cybersecurity_trainer#%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9-%D1%81%D1%82%D1%8D%D0%BA)
+    - [UML-диаграмма Классов](https://github.com/Senchatay/vk_cybersecurity_trainer#uml-%D0%B4%D0%B8%D0%B0%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%B2)
+    - [Highlights](#highlights)
+3. [TODO](#todo)
+4. [Getting Started](#getting-started)
+
+- Скорборд:
+
 
 ## Задача:
 ```txt
@@ -34,6 +39,25 @@
 
 ### UML-диаграмма Классов
 ![UML-класс (1)](https://github.com/Senchatay/vk_cybersecurity_trainer/assets/95499171/41461016-765e-4716-89ac-3579e010e2ff)
+
+### Highlights
+1. Скорборд - результат запроса на (`/users`).
+2. [RatingHelper](https://github.com/Senchatay/vk_cybersecurity_trainer/blob/master/app/helpers/rating_helper.rb)
+    - Хэлпер создает запрос к БД на получение упорядоченного рейтинга пользователей по каждой из категорий задач. 
+    - Использоваение `ActiveRecord::Base.sanitize_sql` позволяет избежать SQL-инъекции в передаваемом `category_id`, если класс будет модифицироваться.
+3. [UsersController](https://github.com/Senchatay/vk_cybersecurity_trainer/blob/master/app/controllers/users_controller.rb)
+    - При запросе скорборда (`/users`) рейтинг для каждой категории запрашивается только один раз
+4. [User](https://github.com/Senchatay/vk_cybersecurity_trainer/blob/master/app/models/user.rb)
+    - Метод пользователя `scoreboard` возвращает Скорборд - таблицу с Названием категории, Количеством решенных задач, Общим количеством задач и Рэйтингом.
+    - Количество решенных задач - результат работы метода `solved_count_by_category_id`, который делает запрос в БД.
+5. Добавлена авторизация без подтверждения подлинности для доработки ролевой модели доступа в будущем.
+6. Присутствует возможность создания новых Категорий, Задач, Пользователей и Решений.
+
+## TODO
+- Добавить Пагинацию скорборда и запросов в БД. - Сейчас запрос на получение рейтинга всегда возвращает весь рейтинг.
+- Добавить кеширование запросов количества задач в категории и количества решенных задач в категории для пользователя.
+- `Rails` приложении при необходимости можно переписать под `Jango`.
+- При необходимости переноса логики с БД на Бэкенд можно использовать микросервис на `GO` для ускорения операций с большими данными.
 
 ## Getting started
 Запустить приложение на `localhost:3000`:
