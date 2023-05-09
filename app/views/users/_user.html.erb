@@ -3,5 +3,24 @@
     <strong>Имя:</strong>
     <%= user.name %>
   </p>
-
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Категория</th>
+        <th scope="col">Решено задач</th>
+        <th scope="col">Задач всего</th>
+        <th scope="col">Рейтинг</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% user.scoreboard(ratings).each do |name, solved, total, rating|%>
+        <tr>
+          <th scope="row"><%= name %></th>
+          <td><%= solved %></td>
+          <td><%= total %></td>
+          <td><%= rating %></td>
+        </tr>
+      <% end%>
+    </tbody>
+  </table>
 </div>

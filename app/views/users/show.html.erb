@@ -1,10 +1,24 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @user %>
+<%= render partial: 'user', object: @user, locals: { ratings: @ratings }%>
 
-<div>
+<div class="mb-3">
   <%= link_to "Редактировать пользователя", edit_user_path(@user) %> |
   <%= link_to "Обратно к списку пользователей", users_path %>
+</div>
 
-  <%= button_to "Удалить пользователя", @user, method: :delete %>
+<div class="mb-3">
+  <%= button_to "Удалить пользователя", @user, method: :delete, class: 'btn btn-danger' %>
+</div>
+<hr>
+<h1>Все решения этого пользователя:</h1>
+<br>
+<div>
+<% @user.solutions.each do |solution| %>
+    <%= render solution %>
+    <p>
+      <%= link_to "Показать решение", task_solution_path(solution.task, solution) %>
+    </p>
+    <hr>
+  <% end %>
 </div>

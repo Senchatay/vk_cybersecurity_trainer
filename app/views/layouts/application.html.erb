@@ -5,12 +5,38 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
   <body>
-    <%= yield %>
+    <nav class="navbar navbar-dark bg-primary navbar-expand-lg sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href=<%= root_path %>>Задачи</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href=<%= categories_path %>>Категории</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href=<%= users_path %>>Пользователи</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <% if !user_signed_in? && controller_name != 'sessions' %>
+              <%= button_to 'Войти', new_session_path, method: :get, class: "btn btn-outline-light my-2 my-sm-0" %>
+              <%= button_to 'Зарегистрироваться', new_user_path, method: :get, class: "btn btn-outline-light my-2 my-sm-0" %>
+            <% else %>
+              <%= button_to 'Выйти', new_session_path, method: :get, class: "btn btn-outline-light my-2 my-sm-0" %>
+            <% end%>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

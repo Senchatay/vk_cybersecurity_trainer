@@ -2,9 +2,23 @@
 
 <%= render @category %>
 
-<div>
+<div class="mb-3">
   <%= link_to "Редактировать категорию", edit_category_path(@category) %> |
   <%= link_to "Обратно к списку категорий", categories_path %>
-
-  <%= button_to "Удалить категорию", @category, method: :delete %>
+</div>
+<div>
+  <%= button_to "Удалить категорию", @category, method: :delete, class: 'btn btn-danger' %>
+</div>
+<hr>
+<h1>Все задачи этой категории:</h1>
+<br>
+<div>
+<% @category.tasks.each do |task| %>
+    <%= render task %>
+    <p>
+      <%= link_to "Открыть эту задачу", task %> |
+      <%= link_to "Открыть решения этой задачи", task_solutions_path(task) %>
+    </p>
+    <hr>
+  <% end %>
 </div>

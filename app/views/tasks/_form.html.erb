@@ -11,24 +11,24 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="mb-3">
     <%= form.label :'Название', style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
 
   <% if [:new, :edit, :create, :update].include?(action_name.to_sym) %>
-    <div>
+    <div class="mb-3">
       <%= form.label :'Категория', style: "display: block" %>
-      <%= form.select :category_id, @categories %>
+      <%= form.select :category_id, @categories, {}, class: 'form-select' %>
     </div>
   <% end %>
 
-  <div>
+  <div class="mb-3">
     <%= form.label :'Описание', style: "display: block" %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.submit 'Сохранить' %>
+  <div class="mb-3">
+    <%= form.submit :'Сохранить', class: 'btn btn-success' %>
   </div>
 <% end %>

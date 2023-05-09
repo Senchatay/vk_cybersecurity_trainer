@@ -11,17 +11,17 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="mb-3">
     <%= form.label :'Наименование', style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
 
-  <div>
+  <div class="mb-3">
     <%= form.label :'Описание', style: "display: block" %>
-    <%= form.text_area :description, size: "60x5" %>
+    <%= form.text_area :description, size: "60x5", class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.submit :'Сохранить' %>
+  <div class="mb-3">
+    <%= form.submit :'Сохранить', class: 'btn btn-success' %>
   </div>
 <% end %>
