@@ -2,7 +2,7 @@
   
   <% with_content ||= false %>
   <% if with_content %>
-    <h1> Решение Задачи <%= @task.name %> </h1>
+    <h1> Решение Задачи <%= solution.task.name %> </h1>
 
     <p>
       <strong>Содержание:</strong>
@@ -10,6 +10,11 @@
       <%= text_area(:solution, :content, size: '100x15', disabled: 'disabled') %>
     </p>
   <% end %>
+  
+  <p>
+    <strong>Статус:</strong>
+    <%= solution.decorized_status %>
+  </p>
 
   <p>
     <strong>Пользователь:</strong>

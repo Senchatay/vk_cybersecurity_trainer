@@ -1,5 +1,5 @@
 class SolutionsController < ApplicationController
-  before_action :find_task
+  before_action :find_task#, only: %i[index]
   before_action :set_solution, only: %i[show edit update destroy]
 
   attr_accessor :task, :solution
@@ -23,7 +23,7 @@ class SolutionsController < ApplicationController
   # POST /solutions or /solutions.json
   def create
     @solution = Solution.new(solution_params)
-
+    check_if_right
     respond_to do |format|
       if solution.save
         format.html { redirect_to task_solution_path(task, solution), notice: 'Решение было успешно добавлено.' }
@@ -37,6 +37,7 @@ class SolutionsController < ApplicationController
 
   # PATCH/PUT /solutions/1 or /solutions/1.json
   def update
+    check_if_right
     respond_to do |format|
       if solution.update(solution_params)
         format.html { redirect_to task_solution_path(task, solution), notice: 'Решение было успешно отредактировано.' }
@@ -76,5 +77,12 @@ class SolutionsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def solution_params
     params.require(:solution).permit(:content, :user_id, :task_id)
+  end
+
+  def check_if_right
+    return unless task.auto?
+    return solution.set_right! if params[:solution][:content] == task.right_solution
+
+    solution.set_wrong!
   end
 end

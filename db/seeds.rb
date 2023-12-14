@@ -10,60 +10,59 @@ User.destroy_all
 Task.destroy_all
 Category.destroy_all
 
-Category.create!([
-                   { id: 1,
-                     name: 'Easy',
-                     description: 'Простые задачи' },
-                   { id: 2,
-                     name: 'Medium',
-                     description: 'Задачи среднего уровня' },
-                   { id: 3,
-                     name: 'Hard',
-                     description: 'Сложные задачи' }
-                 ])
+categorys = {
+  easy: Category.new(name: 'Easy', description: 'Простые задачи'),
+  medium: Category.new(name: 'Medium', description: 'Задачи среднего уровня'),
+  hard: Category.new(name: 'Hard', description: 'Сложные задачи')
+}
+categorys.each_value(&:save!)
 puts 'Categories was created!'
 
-Task.create!([
-               { id: 1,
-                 name: '[EASY] CrackMe',
-                 description: "CrackMe made specifically for beginners.\n" \
-                             '- Crack the username and the password to have access to the program.',
-                 category_id: 1 },
-               { id: 2,
-                 name: 'Salt and Hash - Windows',
-                 description: 'Crack the hash!',
-                 category_id: 2 },
-               { id: 3,
-                 name: '[Hard] CrackMe',
-                 description: 'Усложненная задача CrackMe',
-                 category_id: 3 },
-               { id: 4,
-                 name: '[Easy] CrackMe++',
-                 description: 'Обновленная версия CrackMe',
-                 category_id: 1 }
-             ])
+tasks = [
+  Task.new(
+    name: '[EASY] CrackMe',
+    description: "CrackMe made specifically for beginners.\n" \
+                '- Crack the username and the password to have access to the program.',
+    category_id: categorys[:easy].id
+  ), Task.new(
+    name: 'Salt and Hash - Windows',
+    description: 'Crack the hash!',
+    category_id: categorys[:medium].id
+  ), Task.new(
+    name: '[Hard] CrackMe',
+    description: 'Усложненная задача CrackMe',
+    category_id: categorys[:hard].id
+  ), Task.new(
+    name: '[Easy] CrackMe++',
+    description: 'Обновленная версия CrackMe',
+    category_id: categorys[:easy].id
+  )
+]
+tasks.each(&:save!)
+task_ids = tasks.map(&:id)
 puts 'Tasks was created!'
 
-User.create!([
-               { id: 1, name: 'Арсений', email: 'landih73@gmail.com', password: '123456' },
-               { id: 2, name: 'Егор', email: 'egor@gmail.com', password: '123456' }
-             ])
+users = [
+  User.new(name: 'Арсений', email: 'landih73@gmail.com', password: '123456'),
+  User.new(name: 'Егор', email: 'egor@gmail.com', password: '123456')
+]
+users.each(&:save!)
 puts 'Users was created!'
 
 Solution.create!([
                    {
-                     id: 1,
+
                      content:
                         "func twoSum(nums []int, target int) []int {\n    " \
                         "hash := make(map[int]int, len(nums))\n    for index, value := range nums {\n        " \
                         "pair_index, present := hash[target-value]\n        if present {\n            " \
                         "return []int{index, pair_index};\n        } \n        " \
                         "\n        hash[value] = index\n    }\n    return []int{};\n}",
-                     user_id: 1,
-                     task_id: 1
+                     user_id: users[0].id,
+                     task_id: task_ids[0]
                    },
                    {
-                     id: 2,
+
                      content:
                          "func convert(s string, numRows int) string {\n    if numRows == 1 {\n        " \
                          "return s\n    }\n    res := make([]string, numRows)\n    i := 0\n    " \
@@ -71,11 +70,11 @@ Solution.create!([
                          "res[i] += string(sym)\n        current = (n + 1) % zigzag_len\n        " \
                          "if current >= numRows || current == 0  {\n            i--\n        } else {\n            " \
                          "i++    \n        }\n    }\n    return strings.Join(res,\"\")\n}",
-                     user_id: 1,
-                     task_id: 1
+                     user_id: users[0].id,
+                     task_id: task_ids[0]
                    },
                    {
-                     id: 3,
+
                      content:
                          "func convert(s string, numRows int) string {\n    if numRows == 1 {\n        " \
                          "return s\n    }\n    res := make([]string, numRows)\n    i := 0\n    " \
@@ -83,11 +82,11 @@ Solution.create!([
                          "res[i] += string(sym)\n        current = (n + 1) % zigzag_len\n        " \
                          "if current >= numRows || current == 0  {\n            i--\n        " \
                          "} else {\n            i++    \n        }\n    }\n    return strings.Join(res,\"\")\n}",
-                     user_id: 1,
-                     task_id: 1
+                     user_id: users[0].id,
+                     task_id: task_ids[0]
                    },
                    {
-                     id: 4,
+
                      content:
                          "func convert(s string, numRows int) string {\n    if numRows == 1 {\n        " \
                          "return s\n    }\n    res := make([]string, numRows)\n    i := 0\n    " \
@@ -95,23 +94,23 @@ Solution.create!([
                          "res[i] += string(sym)\n        current = (n + 1) % zigzag_len\n        " \
                          "if current >= numRows || current == 0  {\n            i--\n        " \
                          "} else {\n            i++    \n        }\n    }\n    return strings.Join(res,\"\")\n}",
-                     user_id: 1,
-                     task_id: 3
+                     user_id: users[0].id,
+                     task_id: task_ids[2]
                    },
                    {
-                     id: 5,
+
                      content: 'User.select(:name).distinct.distinct(false)',
-                     user_id: 2,
-                     task_id: 1
+                     user_id: users[1].id,
+                     task_id: task_ids[0]
                    },
                    {
-                     id: 6,
+
                      content:
                          "SELECT customerName, customercity, customermail, salestotal\nFROM onlinecustomers AS oc\n   " \
                          "INNER JOIN\n   orders AS o\n   ON oc.customerid = o.customerid\n   INNER JOIN\n   " \
                          "sales AS s\n   ON o.orderId = s.orderId",
-                     user_id: 2,
-                     task_id: 4
+                     user_id: users[1].id,
+                     task_id: task_ids[3]
                    }
                  ])
 puts 'Solutions was created!'
