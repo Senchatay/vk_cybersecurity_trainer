@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: %i[show edit update destroy]
   before_action :ratings, only: %i[index show]
+  before_action :check_permissions, only: %i[new edit create update]
 
   # GET /users or /users.json
   def index
@@ -12,7 +13,8 @@ class UsersController < ApplicationController
   # GET /users/1 or /users/1.json
   def show; end
 
-  # GET /users/new
+  # # GET /users/new
+  skip_before_action :redirect_unsigned, only: %i[new create]
   def new
     @user = User.new
   end
@@ -71,6 +73,15 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:name)
+    params.require(:user).permit(:name, :email, :password)
+  end
+
+  def check_permissions
+    return if @user == current_user
+
+    respond_to do |format|
+      format.html { redirect_back_or_to root_path, notice: 'Нет доступа к пользователю.' }
+      format.json { head :no_content }
+    end
   end
 end

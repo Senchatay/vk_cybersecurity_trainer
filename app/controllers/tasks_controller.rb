@@ -1,10 +1,15 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
   before_action :categories, only: %i[new edit create update]
+  before_action :check_permissions, only: %i[edit]
 
   # GET /tasks or /tasks.json
   def index
     @tasks = Task.all
+  end
+
+  def own
+    @tasks = Task.where(user: current_user)
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -70,5 +75,14 @@ class TasksController < ApplicationController
   # Only allow a list of trusted parameters through.
   def task_params
     params.require(:task).permit(:name, :description, :category_id, :solution_type, :right_solution)
+  end
+
+  def check_permissions
+    return unless @task.user != current_user
+
+    respond_to do |format|
+      format.html { redirect_back_or_to root_path, notice: 'Нет доступа к задаче.' }
+      format.json { head :no_content }
+    end
   end
 end

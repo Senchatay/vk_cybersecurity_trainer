@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :categories
   resources :tasks
 
+  get 'own_tasks', to: 'tasks#own'
+  get 'own_solutions', to: 'solutions#own'
+
   resources :tasks do
     resources :solutions
   end

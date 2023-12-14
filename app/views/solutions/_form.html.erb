@@ -11,15 +11,11 @@
     </div>
   <% end %>
   
+  <%= form.hidden_field(:task_id, value: @task.id) %>
 
   <div class="mb-3">
     <%= form.label :'Содержимое', style: "display: block" %>
     <%= form.text_area :content, size: '100x15', class: 'form-control' %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :'Пользователь', style: "display: block" %>
-    <%= form.text_field :user_id, class: 'form-control' %>
   </div>
 
   <div class="mb-3">

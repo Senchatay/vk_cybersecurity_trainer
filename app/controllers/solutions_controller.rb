@@ -1,12 +1,18 @@
 class SolutionsController < ApplicationController
-  before_action :find_task#, only: %i[index]
+  before_action :find_task
   before_action :set_solution, only: %i[show edit update destroy]
+  before_action :check_permissions, only: %i[show edit]
 
   attr_accessor :task, :solution
 
   # GET /solutions or /solutions.json
   def index
-    @solutions = Solution.where(task: task)
+    @solutions = Solution.where(user: current_user, task: task)
+  end
+
+  skip_before_action :find_task, only: :own
+  def own
+    @solutions = Solution.where(user: current_user)
   end
 
   # GET /solutions/1 or /solutions/1.json
@@ -23,9 +29,10 @@ class SolutionsController < ApplicationController
   # POST /solutions or /solutions.json
   def create
     @solution = Solution.new(solution_params)
-    check_if_right
+    solution.user = current_user
     respond_to do |format|
       if solution.save
+        check_if_right
         format.html { redirect_to task_solution_path(task, solution), notice: 'Решение было успешно добавлено.' }
         format.json { render :show, status: :created, location: solution }
       else
@@ -37,9 +44,9 @@ class SolutionsController < ApplicationController
 
   # PATCH/PUT /solutions/1 or /solutions/1.json
   def update
-    check_if_right
     respond_to do |format|
       if solution.update(solution_params)
+        check_if_right
         format.html { redirect_to task_solution_path(task, solution), notice: 'Решение было успешно отредактировано.' }
         format.json { render :show, status: :ok, location: solution }
       else
@@ -54,7 +61,7 @@ class SolutionsController < ApplicationController
     solution.destroy
 
     respond_to do |format|
-      format.html { redirect_to solutions_url, notice: 'Решение удалено.' }
+      format.html { redirect_to root_path, notice: 'Решение удалено.' }
       format.json { head :no_content }
     end
   end
@@ -76,7 +83,7 @@ class SolutionsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def solution_params
-    params.require(:solution).permit(:content, :user_id, :task_id)
+    params.require(:solution).permit(:content, :task_id)
   end
 
   def check_if_right
@@ -84,5 +91,14 @@ class SolutionsController < ApplicationController
     return solution.set_right! if params[:solution][:content] == task.right_solution
 
     solution.set_wrong!
+  end
+
+  def check_permissions
+    return if solution.user == current_user || task.user == current_user
+
+    respond_to do |format|
+      format.html { redirect_back_or_to root_path, notice: 'Нет доступа к решению.' }
+      format.json { head :no_content }
+    end
   end
 end

@@ -2,6 +2,7 @@
 
 class Task < ApplicationRecord
   belongs_to :category
+  belongs_to :user
   has_many :solutions
   validates :name, presence: true, uniqueness: true
   validates :category, presence: true

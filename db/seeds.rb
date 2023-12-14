@@ -18,36 +18,41 @@ categorys = {
 categorys.each_value(&:save!)
 puts 'Categories was created!'
 
-tasks = [
-  Task.new(
-    name: '[EASY] CrackMe',
-    description: "CrackMe made specifically for beginners.\n" \
-                '- Crack the username and the password to have access to the program.',
-    category_id: categorys[:easy].id
-  ), Task.new(
-    name: 'Salt and Hash - Windows',
-    description: 'Crack the hash!',
-    category_id: categorys[:medium].id
-  ), Task.new(
-    name: '[Hard] CrackMe',
-    description: 'Усложненная задача CrackMe',
-    category_id: categorys[:hard].id
-  ), Task.new(
-    name: '[Easy] CrackMe++',
-    description: 'Обновленная версия CrackMe',
-    category_id: categorys[:easy].id
-  )
-]
-tasks.each(&:save!)
-task_ids = tasks.map(&:id)
-puts 'Tasks was created!'
-
 users = [
   User.new(name: 'Арсений', email: 'landih73@gmail.com', password: '123456'),
   User.new(name: 'Егор', email: 'egor@gmail.com', password: '123456')
 ]
 users.each(&:save!)
 puts 'Users was created!'
+
+tasks = [
+  Task.new(
+    name: '[EASY] CrackMe',
+    description: "CrackMe made specifically for beginners.\n" \
+                '- Crack the username and the password to have access to the program.',
+    category_id: categorys[:easy].id,
+    user: users.first
+  ), Task.new(
+    name: 'Salt and Hash - Windows',
+    description: 'Crack the hash!',
+    category_id: categorys[:medium].id,
+    user: users[1]
+  ), Task.new(
+    name: '[Hard] CrackMe',
+    description: 'Усложненная задача CrackMe',
+    category_id: categorys[:hard].id,
+    user: users.first
+  ), Task.new(
+    name: '[Easy] CrackMe++',
+    description: 'Обновленная версия CrackMe',
+    category_id: categorys[:easy].id,
+    user: users.first
+  )
+]
+tasks.each(&:save!)
+task_ids = tasks.map(&:id)
+puts 'Tasks was created!'
+
 
 Solution.create!([
                    {

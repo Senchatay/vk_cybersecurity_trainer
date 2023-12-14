@@ -7,6 +7,10 @@ class User < ApplicationRecord
 
   has_secure_password validations: false
   has_many :solutions
+  has_many :tasks
+
+  validates :email, presence: true, uniqueness: true
+  validates :password, presence: true
 
   def scoreboard(ratings)
     categories = Category.all
@@ -29,16 +33,6 @@ class User < ApplicationRecord
              .distinct
              .count
   end
-
-  # def digest(string)
-  #   cost = if ActiveModel::SecurePassword
-  #             .min_cost
-  #            BCrypt::Engine::MIN_COST
-  #          else
-  #            BCrypt::Engine.cost
-  #          end
-  #   BCrypt::Password.create(string, cost: cost)
-  # end
 
   def position_in_rating(rating)
     position = rating.pluck('id').index(id)
