@@ -5,11 +5,21 @@
 <%= form_with url: sessions_path do |f| %>
   <div class="mb-3 row">
     <div class="col-sm-2 col-form-label">
-      <%= f.label :name %>
+      <%= f.label :email, t('.form.email') %>
     </div>
 
     <div class="col-sm-10">
-      <%= f.text_field :name, value: params[:name], class: 'form-control form-control-lg' %>
+      <%= f.email_field :email, value: params[:email], class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <%= f.label :password, t('.form.password') %>
+    </div>
+
+    <div class="col-sm-10">
+      <%= f.password_field :password, class: 'form-control form-control-lg' %>
     </div>
   </div>
 

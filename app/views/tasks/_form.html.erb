@@ -21,6 +21,11 @@
       <%= form.label :'Категория', style: "display: block" %>
       <%= form.select :category_id, @categories, {}, class: 'form-select' %>
     </div>
+
+    <div class="mb-3">
+      <%= form.label :'Тип задачи', style: "display: block" %>
+      <%= form.select :solution_type, Task::TYPES.values, {}, class: 'form-select' %>
+    </div>
   <% end %>
 
   <div class="mb-3">

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :sessions, only: %i[new create destroy]
+  resources :sessions, only: %i[new create]
+
+  delete :session_delete, to: 'sessions#destroy'
 
   root 'tasks#index'
 

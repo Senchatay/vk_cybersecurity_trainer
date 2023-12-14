@@ -24,14 +24,19 @@
               <a class="nav-link" href=<%= users_path %>>Пользователи</a>
             </li>
           </ul>
-          <form class="d-flex">
-            <% if !user_signed_in? && controller_name != 'sessions' %>
-              <%= button_to 'Войти', new_session_path, method: :get, class: "btn btn-outline-light my-2 my-sm-0" %>
-              <%= button_to 'Зарегистрироваться', new_user_path, method: :get, class: "btn btn-outline-light my-2 my-sm-0" %>
-            <% else %>
-              <%= button_to 'Выйти', new_session_path, method: :get, class: "btn btn-outline-light my-2 my-sm-0" %>
-            <% end%>
-          </form>
+          <% if !user_signed_in? && controller_name != 'sessions' %>
+            <div style="padding-right: 10px;">
+              <%= link_to 'Войти', new_session_path, method: :get, class: "btn btn-outline-light my-2 my-sm-0" %>
+            </div>
+            <div>
+            <%= link_to 'Зарегистрироваться', new_user_path, method: :get, class: "btn btn-outline-light my-2 my-sm-0" %>
+            </div>
+          <% else %>
+            <a class="nav-link active" style="color: white; padding-right: 10px;"><%= current_user&.email %></a>
+            <% if controller_name != 'sessions' %>
+              <div><%= button_to 'Выйти', session_delete_path, method: :delete, class: "btn btn-outline-light my-2 my-sm-0" %></div>
+            <% end %>
+          <% end%>
         </div>
       </div>
     </nav>

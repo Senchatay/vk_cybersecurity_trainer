@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
+  # include Recoverable
+  include Rememberable
   include RatingHelper
 
+  has_secure_password validations: false
   has_many :solutions
 
   def scoreboard(ratings)
@@ -24,6 +29,16 @@ class User < ApplicationRecord
              .distinct
              .count
   end
+
+  # def digest(string)
+  #   cost = if ActiveModel::SecurePassword
+  #             .min_cost
+  #            BCrypt::Engine::MIN_COST
+  #          else
+  #            BCrypt::Engine.cost
+  #          end
+  #   BCrypt::Password.create(string, cost: cost)
+  # end
 
   def position_in_rating(rating)
     position = rating.pluck('id').index(id)

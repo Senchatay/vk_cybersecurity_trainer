@@ -45,8 +45,8 @@ Task.create!([
 puts 'Tasks was created!'
 
 User.create!([
-               { id: 1, name: 'Арсений' },
-               { id: 2, name: 'Егор' }
+               { id: 1, name: 'Арсений', email: 'landih73@gmail.com', password: '123456' },
+               { id: 2, name: 'Егор', email: 'egor@gmail.com', password: '123456' }
              ])
 puts 'Users was created!'
 
