@@ -23,5 +23,5 @@ test:
 production:
   <<: *default
   database: vk_cybersecurity_trainer_production
-  username: vk_cybersecurity_trainer
-  password: <%= ENV["VK_CYBERSECURITY_TRAINER_DATABASE_PASSWORD"] %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>

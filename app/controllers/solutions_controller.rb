@@ -7,7 +7,7 @@ class SolutionsController < ApplicationController
 
   # GET /solutions or /solutions.json
   def index
-    @solutions = Solution.where(user: current_user, task: task)
+    @solutions = Solution.where(task: task)
   end
 
   skip_before_action :find_task, only: :own
